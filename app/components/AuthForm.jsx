@@ -1,9 +1,9 @@
 import Link from "next/link";
-const AuthForm = ({ mode }) => {
+const AuthForm = ({ mode, userAction }) => {
   return (
     <>
       <div className="form-wrapper flex flex-col items-center w-xs mx-auto">
-        <form action="">
+        <form action={userAction}>
           <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
             <legend className="fieldset-legend">Register</legend>
 

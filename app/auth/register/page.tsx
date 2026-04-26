@@ -9,18 +9,18 @@ const RegisterPage = () => {
   const createUser = async (formData: FormData) => {
     "use server";
 
-    const username = formData.get("username") as string;
+    const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+    console.log(name);
 
-    const user = await auth.api.signUpEmail({
+    await auth.api.signUpEmail({
       body: {
-        name: username,
+        name,
         email,
         password,
       },
     });
-    console.log(user);
 
     redirect("/auth/login");
   };

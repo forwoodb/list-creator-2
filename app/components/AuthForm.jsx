@@ -5,13 +5,15 @@ const AuthForm = ({ mode, userAction }) => {
       <div className="form-wrapper flex flex-col items-center w-xs mx-auto">
         <form action={userAction}>
           <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-            <legend className="fieldset-legend">Register</legend>
+            <legend className="fieldset-legend">
+              {mode === "register" ? "Register" : "Log In"}
+            </legend>
 
-            <label className="label">Username</label>
+            <label className="label">Name</label>
             <input
-              type="username"
-              name="username"
-              placeholder="Username"
+              type="name"
+              name="name"
+              placeholder="Name"
               className="input"
             />
 

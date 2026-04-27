@@ -38,7 +38,7 @@ const AdminPage = async () => {
         <tbody>
           {users.map((user) => (
             <tr key={user._id}>
-              <td>{user.username}</td>
+              <td>{user.name}</td>
               <td>{user.email}</td>
               <td>{user.role}</td>
               <td>

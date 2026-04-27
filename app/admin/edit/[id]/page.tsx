@@ -10,13 +10,13 @@ const EditUserPage = async ({ params }) => {
   const updateUser = async (formData: FormData) => {
     "use server";
 
-    const username = formData.get("username");
+    const name = formData.get("name");
     const email = formData.get("email");
     const role = formData.get("role");
 
-    await User.findByIdAndUpdate(id, { username, email, role });
+    await User.findByIdAndUpdate(id, { name, email, role });
 
-    console.log(username, email, role);
+    console.log(name, email, role);
 
     redirect("/admin");
   };
@@ -24,12 +24,7 @@ const EditUserPage = async ({ params }) => {
   return (
     <>
       <form action={updateUser} className="flex flex-col gap-4 w-xs mx-auto">
-        <input
-          type="text"
-          name="username"
-          value={user.username}
-          className="input"
-        />
+        <input type="text" name="name" value={user.name} className="input" />
         <input type="text" name="email" value={user.email} className="input" />
         <select name="role" id="role" className="select">
           <option value="user" selected={user.role === "user"}>

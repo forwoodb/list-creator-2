@@ -42,7 +42,7 @@ const Navbar = () => {
                 </ul>
               </li>
               <li>
-                <a>Item 3</a>
+                <Link href={`/dashboard/list-names`}>List Names</Link>
               </li>
             </ul>
           </div>
@@ -70,7 +70,7 @@ const Navbar = () => {
               </details>
             </li>
             <li>
-              <a>Item 3</a>
+              <Link href={`/dashboard/list-names`}>List Names</Link>
             </li>
           </ul>
         </div>

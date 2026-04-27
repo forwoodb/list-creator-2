@@ -1,9 +1,4 @@
-import { cookies } from "next/headers";
-
-export default async function Home() {
-  const cookieStore = await cookies();
-  console.log(cookieStore);
-
+export default function Home() {
   return (
     <>
       <main>

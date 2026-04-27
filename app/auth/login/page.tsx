@@ -21,7 +21,7 @@ const LoginPage = () => {
       },
     });
 
-    redirect("/");
+    redirect("/dashboard/list-names");
   };
 
   return (

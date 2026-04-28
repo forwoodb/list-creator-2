@@ -6,6 +6,15 @@ const Navbar = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
+
+  const signOutAction = async () => {
+    "use server";
+
+    await auth.api.signOut({
+      headers: await headers(),
+    });
+  };
+
   return (
     <>
       <div className="navbar bg-base-100 shadow-sm">
@@ -81,9 +90,9 @@ const Navbar = async () => {
         </div>
         <div className="navbar-end">
           {session ? (
-            <Link href={`/auth/logout`} className="btn btn-primary">
-              Log Out
-            </Link>
+            <form action={signOutAction}>
+              <button className="btn btn-primary">Log Out</button>
+            </form>
           ) : (
             <Link href={`/auth/login`} className="btn btn-primary">
               Log In/Register

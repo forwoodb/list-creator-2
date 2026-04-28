@@ -16,6 +16,7 @@ const ListNamesPage = async () => {
   return (
     <>
       <h1>List Names</h1>
+      <p>Hello {session.user.name} </p>
     </>
   );
 };

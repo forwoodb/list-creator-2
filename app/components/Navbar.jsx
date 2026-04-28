@@ -1,6 +1,11 @@
 import Link from "next/link";
+import { auth } from "../lib/auth";
+import { headers } from "next/headers";
 
-const Navbar = () => {
+const Navbar = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   return (
     <>
       <div className="navbar bg-base-100 shadow-sm">
@@ -75,9 +80,15 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link href="/auth/login" className="btn btn-primary">
-            Log In/Register
-          </Link>
+          {session ? (
+            <Link href={`/auth/logout`} className="btn btn-primary">
+              Log Out
+            </Link>
+          ) : (
+            <Link href={`/auth/login`} className="btn btn-primary">
+              Log In/Register
+            </Link>
+          )}
         </div>
       </div>
     </>

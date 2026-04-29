@@ -6,7 +6,7 @@ const listItemSchema = new mongoose.Schema({
     ref: "ListName",
     required: true,
   },
-  itemName: { type: String, required: true },
+  listItem: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
 });
 

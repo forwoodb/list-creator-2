@@ -11,7 +11,7 @@ const ListNamesPage = async () => {
     redirect("/auth/login");
   }
 
-  console.log(session);
+  // console.log(session);
 
   return (
     <>

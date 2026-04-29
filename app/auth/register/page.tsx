@@ -33,7 +33,6 @@ const RegisterPage = () => {
     console.log("google");
 
     const res = await auth.api.signInSocial({
-      // await auth.api.signInSocial({
       body: {
         provider: "google",
         callbackURL: "/dashboard/list-names",
@@ -42,6 +41,8 @@ const RegisterPage = () => {
 
     // 2. data.url is the generated Google Auth URL
     if (res?.url) {
+      console.log(res);
+
       redirect(res.url); // Use Next.js redirect here!
     } else {
       console.error("No redirect URL returned from Better Auth");

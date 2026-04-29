@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 const LoginPage = () => {
   connectDB();
 
-  const verifyUser = async (formData: FormData) => {
+  const verifyUserEmail = async (formData: FormData) => {
     "use server";
 
     const email = formData.get("email") as string;
@@ -24,10 +24,29 @@ const LoginPage = () => {
     redirect("/dashboard/list-names");
   };
 
+  const verifyUserGoogle = async () => {
+    "use server";
+
+    const res = await auth.api.signInSocial({
+      body: {
+        provider: "google",
+        callbackURL: `/dashboard/list-names`,
+      },
+    });
+
+    if (res.url) {
+      redirect(res.url);
+    }
+  };
+
   return (
     <>
       <main>
-        <AuthForm mode={`login`} userAction={verifyUser} />
+        <AuthForm
+          mode={`login`}
+          emailAction={verifyUserEmail}
+          googleAction={verifyUserGoogle}
+        />
       </main>
     </>
   );

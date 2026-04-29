@@ -15,6 +15,7 @@ interface Session {
 interface AppInterfaceProps {
   mode: "list-names" | "list-items";
   session: Session;
+  listName: string;
   items: Item[];
   create: (formData: FormData) => Promise<void>;
 }
@@ -22,6 +23,7 @@ interface AppInterfaceProps {
 const AppInterface = async ({
   mode,
   session,
+  listName = "List Names",
   items,
   create,
 }: AppInterfaceProps) => {
@@ -32,7 +34,7 @@ const AppInterface = async ({
       <div className="app-container min-w-120 mx-auto p-4 rounded bg-gray-400 shadow-md shadow-gray-800">
         <div className="text-wrapper flex justify-between py-1">
           <h2 className="text-center text-6xl text-gray-200">
-            {mode === "list-names" ? `List Names` : `List Items`}
+            {mode === "list-names" ? `List Names` : listName.name}
           </h2>
         </div>
         <p>Hello {session.user.name} </p>

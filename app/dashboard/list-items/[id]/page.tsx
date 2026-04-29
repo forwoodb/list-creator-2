@@ -1,19 +1,22 @@
-import AppInterface from "@/app/components/AppInterface";
 import { auth } from "@/app/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import ListItem from "@/app/models/ListItem";
 import { connectDB } from "@/app/lib/db";
 import { revalidatePath } from "next/cache";
+
+import AppInterface from "@/app/components/AppInterface";
+import ListItem from "@/app/models/ListItem";
+import ListName from "@/app/models/ListName";
 
 interface PageProps {
   params: Promise<{ id: string }>; // Replace with your actual structure
 }
 
 const ListItemsPage = async ({ params }: PageProps) => {
-  // const ListItemsPage = async ({ params }) => {
+  // Connect to the database
   connectDB();
 
+  // Get session info
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -22,19 +25,27 @@ const ListItemsPage = async ({ params }: PageProps) => {
     redirect("/auth/login");
   }
 
-  const listItems = await ListItem.find({});
+  // Get list ID
+  const paramsData = await params;
+  const listId = paramsData.id;
 
+  // Get list name
+  const listName = await ListName.findById(listId);
+
+  // Get list items
+  const listItems = await ListItem.find({ listId });
+
+  // Create a new list item
   const createListItem = async (formData: FormData) => {
     "use server";
 
-    const { id } = await params;
     const name = formData.get("name") as string;
 
-    const newListItem = new ListItem({ listId: id, name });
+    const newListItem = new ListItem({ listId, name });
 
     await newListItem.save();
 
-    revalidatePath(`/dashboard/list-items/${id}`); // Revalidate the path to update the list items after creation
+    revalidatePath(`/dashboard/list-items/${listId}`); // Revalidate the path to update the list items after creation
   };
 
   return (
@@ -42,8 +53,10 @@ const ListItemsPage = async ({ params }: PageProps) => {
       <AppInterface
         mode={"list-items"}
         session={session}
+        listName={listName}
         items={listItems}
         create={createListItem}
+        // create={createListItem.bind(null, listId)}
       />
     </>
   );

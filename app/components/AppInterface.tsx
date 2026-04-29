@@ -9,6 +9,7 @@ interface Session {
   user: {
     id: string;
     name: string;
+    [key: string]: unknown;
   };
 }
 interface AppInterfaceProps {
@@ -24,7 +25,7 @@ const AppInterface = async ({
   items,
   create,
 }: AppInterfaceProps) => {
-  console.log(session);
+  // console.log(session);
 
   return (
     <>
@@ -36,13 +37,13 @@ const AppInterface = async ({
         </div>
         <p>Hello {session.user.name} </p>
         <form action={create} className="mx-auto mb-5 p-2.5 bg-blue-500 ">
-          <label htmlFor="list-name">
+          <label htmlFor="name">
             {mode === "list-names" ? `List Name` : `List Item`}
           </label>
           <input
             type="text"
-            id="list-name"
-            name="list-name"
+            id="name"
+            name="name"
             placeholder={mode === "list-names" ? `List Name` : `List Item`}
             className="input m-2"
           />

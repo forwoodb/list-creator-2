@@ -21,8 +21,8 @@ const ListNamesPage = async () => {
 
   const createListName = async (formData: FormData) => {
     "use server";
-    const listName = formData.get("list-name") as string;
-    const newListName = new ListName({ listName });
+    const name = formData.get("name") as string;
+    const newListName = new ListName({ name });
     await newListName.save();
     revalidatePath("/dashboard/list-names");
   };

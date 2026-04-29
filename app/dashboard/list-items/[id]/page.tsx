@@ -7,10 +7,11 @@ import { connectDB } from "@/app/lib/db";
 import { revalidatePath } from "next/cache";
 
 interface PageProps {
-  params: { id: string }; // Replace with your actual structure
+  params: Promise<{ id: string }>; // Replace with your actual structure
 }
 
 const ListItemsPage = async ({ params }: PageProps) => {
+  // const ListItemsPage = async ({ params }) => {
   connectDB();
 
   const session = await auth.api.getSession({
@@ -25,11 +26,12 @@ const ListItemsPage = async ({ params }: PageProps) => {
 
   const createListItem = async (formData: FormData) => {
     "use server";
+
     const { id } = await params;
+    const name = formData.get("name") as string;
 
-    const listItem = formData.get("list-name") as string;
+    const newListItem = new ListItem({ listId: id, name });
 
-    const newListItem = new ListItem({ listId: id, listItem });
     await newListItem.save();
 
     revalidatePath(`/dashboard/list-items/${id}`); // Revalidate the path to update the list items after creation

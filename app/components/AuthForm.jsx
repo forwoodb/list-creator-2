@@ -1,9 +1,9 @@
 import Link from "next/link";
-const AuthForm = ({ mode, userAction }) => {
+const AuthForm = ({ mode, emailAction, googleAction }) => {
   return (
     <>
       <div className="form-wrapper flex flex-col items-center w-xs mx-auto">
-        <form action={userAction}>
+        <form action={emailAction}>
           <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
             <legend className="fieldset-legend">
               {mode === "register" ? "Register" : "Log In"}
@@ -38,6 +38,15 @@ const AuthForm = ({ mode, userAction }) => {
             </button>
           </fieldset>
         </form>
+        <p>Or</p>
+        <form action={googleAction}>
+          <button type="submit">
+            {mode === "register" ? "Sign Up" : "Log In"} With Google
+          </button>
+        </form>
+        {/* <Link href={`/api/auth/social/google`}>
+          {mode === "register" ? "Sign Up" : "Log In"} With Google
+        </Link> */}
         {mode === "register" ? (
           <p>
             Already have an account?{" "}

@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 const RegisterPage = () => {
   connectDB();
 
-  const createUser = async (formData: FormData) => {
+  const signupEmailAction = async (formData: FormData) => {
     "use server";
 
     const name = formData.get("name") as string;
@@ -22,15 +22,41 @@ const RegisterPage = () => {
       },
     });
 
-    redirect("/auth/login");
+    redirect("/dashboard/list-names");
+  };
+
+  const signInGoogleAction = async () => {
+    "use server";
+
+    connectDB();
+
+    console.log("google");
+
+    const res = await auth.api.signInSocial({
+      // await auth.api.signInSocial({
+      body: {
+        provider: "google",
+        callbackURL: "/dashboard/list-names",
+      },
+    });
+
+    // 2. data.url is the generated Google Auth URL
+    if (res?.url) {
+      redirect(res.url); // Use Next.js redirect here!
+    } else {
+      console.error("No redirect URL returned from Better Auth");
+    }
   };
 
   return (
     <>
       <main>
         {/* <div className="mx-auto border border-black"> */}
-        <AuthForm mode={`register`} userAction={createUser} />
-        {/* </div> */}
+        <AuthForm
+          mode={`register`}
+          emailAction={signupEmailAction}
+          googleAction={signInGoogleAction}
+        />
       </main>
     </>
   );

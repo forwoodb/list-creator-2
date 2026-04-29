@@ -13,8 +13,14 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-
-  // plugins: [nextCookies()],
+  baseURL: process.env.BETTER_AUTH_URL,
+  socialProviders: {
+    google: {
+      enabled: true,
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    },
+  },
   plugins: [admin(), nextCookies()],
 });
 // password

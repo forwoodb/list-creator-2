@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const listNameSchema = new mongoose.Schema({
-  listName: {
+  name: {
     type: String,
     required: true,
   },

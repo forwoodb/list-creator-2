@@ -1,7 +1,30 @@
 import Link from "next/link";
 
-const AppInterface = async ({ mode, session, items, create }) => {
-  // console.log(session);
+interface Item {
+  _id: string;
+  name: string;
+}
+
+interface Session {
+  user: {
+    id: string;
+    name: string;
+  };
+}
+interface AppInterfaceProps {
+  mode: "list-names" | "list-items";
+  session: Session;
+  items: Item[];
+  create: (formData: FormData) => Promise<void>;
+}
+
+const AppInterface = async ({
+  mode,
+  session,
+  items,
+  create,
+}: AppInterfaceProps) => {
+  console.log(session);
 
   return (
     <>
@@ -31,7 +54,7 @@ const AppInterface = async ({ mode, session, items, create }) => {
               key={item._id}
               className="flex justify-between items-center max-w-lg p-2.5 mx-auto my-2.5 bg-gray-200 rounded"
             >
-              {mode === "list-names" ? item.listName : item.listItem}
+              {item.name}
               <div className="buttons">
                 {mode === "list-names" && (
                   <Link

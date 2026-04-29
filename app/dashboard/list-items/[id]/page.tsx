@@ -6,7 +6,11 @@ import ListItem from "@/app/models/ListItem";
 import { connectDB } from "@/app/lib/db";
 import { revalidatePath } from "next/cache";
 
-const ListItemsPage = async ({ params }) => {
+interface PageProps {
+  params: { id: string }; // Replace with your actual structure
+}
+
+const ListItemsPage = async ({ params }: PageProps) => {
   connectDB();
 
   const session = await auth.api.getSession({

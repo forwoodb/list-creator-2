@@ -7,8 +7,10 @@ import { revalidatePath } from "next/cache";
 import AppInterface from "@/app/components/AppInterface";
 
 const ListNamesPage = async () => {
+  // Connect to the database
   connectDB();
 
+  // Get session info
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -17,23 +19,30 @@ const ListNamesPage = async () => {
     redirect("/auth/login");
   }
 
-  const listNames = await ListName.find({});
+  // Get user ID from session
+  const userId = session.user.id;
+
+  // Get list names for the user
+  const listNames = await ListName.find({ userId });
 
   const createListName = async (formData: FormData) => {
     "use server";
+
     const name = formData.get("name") as string;
-    const newListName = new ListName({ name });
+    const newListName = new ListName({ name, userId });
     await newListName.save();
+
     revalidatePath("/dashboard/list-names");
   };
 
-  console.log(session);
+  // console.log(session);
 
   return (
     <>
       <AppInterface
         mode={`list-names`}
         session={session}
+        listName={`List Names`}
         items={listNames}
         create={createListName}
       />

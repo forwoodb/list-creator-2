@@ -34,7 +34,7 @@ const AppInterface = async ({
       <div className="app-container min-w-120 mx-auto p-4 rounded bg-gray-400 shadow-md shadow-gray-800">
         <div className="text-wrapper flex justify-between py-1">
           <h2 className="text-center text-6xl text-gray-200">
-            {mode === "list-names" ? `List Names` : listName.name}
+            {mode === "list-names" ? `List Names` : listName}
           </h2>
         </div>
         <p>Hello {session.user.name} </p>

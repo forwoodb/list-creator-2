@@ -53,7 +53,7 @@ const ListItemsPage = async ({ params }: PageProps) => {
       <AppInterface
         mode={"list-items"}
         session={session}
-        listName={listName}
+        listName={listName.name}
         items={listItems}
         create={createListItem}
         // create={createListItem.bind(null, listId)}

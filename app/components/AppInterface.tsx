@@ -18,6 +18,7 @@ interface AppInterfaceProps {
   listName: string;
   items: Item[];
   create: (formData: FormData) => Promise<void>;
+  deleteName: (formData: FormData) => Promise<void>;
 }
 
 const AppInterface = async ({
@@ -26,6 +27,7 @@ const AppInterface = async ({
   listName = "List Names",
   items,
   create,
+  deleteName,
 }: AppInterfaceProps) => {
   // console.log(session);
 
@@ -49,7 +51,9 @@ const AppInterface = async ({
             placeholder={mode === "list-names" ? `List Name` : `List Item`}
             className="input m-2"
           />
-          <button className="btn btn-neutral ">Create List Name</button>
+          <button className="btn btn-neutral ">
+            Create List {mode == "list-names" ? "Name" : "Item"}
+          </button>
         </form>
         <div className="list-container">
           {items.map((item) => (
@@ -58,7 +62,7 @@ const AppInterface = async ({
               className="flex justify-between items-center max-w-lg p-2.5 mx-auto my-2.5 bg-gray-200 rounded"
             >
               {item.name}
-              <div className="buttons">
+              <div className="buttons flex justify-between items-center">
                 {mode === "list-names" && (
                   <Link
                     href={`/dashboard/list-items/${item._id}`}
@@ -68,7 +72,10 @@ const AppInterface = async ({
                   </Link>
                 )}
                 <button className="btn">Edit</button>
-                <button className="btn">Delete</button>
+                <form action={deleteName}>
+                  <input type="hidden" name="id" value={item._id} />
+                  <button className="btn">Delete</button>
+                </form>
               </div>
             </div>
           ))}

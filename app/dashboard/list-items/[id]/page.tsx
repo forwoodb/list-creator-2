@@ -33,7 +33,8 @@ const ListItemsPage = async ({ params }: PageProps) => {
   const listName = await ListName.findById(listId);
 
   // Get list items
-  const listItems = await ListItem.find({ listId });
+  const data = await ListItem.find({ listId });
+  const listItems = JSON.parse(JSON.stringify(data));
 
   // Create a new list item
   const createListItem = async (formData: FormData) => {
@@ -56,6 +57,7 @@ const ListItemsPage = async ({ params }: PageProps) => {
         listName={listName.name}
         items={listItems}
         create={createListItem}
+        // deleteName={}
         // create={createListItem.bind(null, listId)}
       />
     </>

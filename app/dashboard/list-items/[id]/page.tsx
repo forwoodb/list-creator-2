@@ -30,7 +30,7 @@ const ListItemsPage = async ({ params }: PageProps) => {
   const listId = paramsData.id;
 
   // Get list name
-  const listName = await ListName.findById(listId);
+  const listName = await ListName.findById(listId).lean();
 
   // Get list items
   const data = await ListItem.find({ listId });
@@ -41,12 +41,19 @@ const ListItemsPage = async ({ params }: PageProps) => {
     "use server";
 
     const name = formData.get("name") as string;
-
     const newListItem = new ListItem({ listId, name });
-
     await newListItem.save();
 
     revalidatePath(`/dashboard/list-items/${listId}`); // Revalidate the path to update the list items after creation
+  };
+
+  const deleteListItem = async (formData: FormData) => {
+    "use server";
+    const id = formData.get("id") as string;
+
+    await ListItem.findByIdAndDelete(id);
+
+    revalidatePath(`/dashboard/list-items/${listId}`); // Revalidate the path to update the list items after deletion
   };
 
   return (
@@ -57,8 +64,8 @@ const ListItemsPage = async ({ params }: PageProps) => {
         listName={listName.name}
         items={listItems}
         create={createListItem}
-        // deleteName={}
         // create={createListItem.bind(null, listId)}
+        deleteName={deleteListItem}
       />
     </>
   );

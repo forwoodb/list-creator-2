@@ -59,7 +59,12 @@ const ListItemsPage = async ({ params }: PageProps) => {
   const updateListItem = async (formData: FormData) => {
     "use server";
 
-    console.log("update lust item");
+    const id = formData.get("id");
+    const name = formData.get("name");
+
+    await ListItem.findOneAndUpdate(id, { name });
+
+    console.log(id, name);
   };
   return (
     <>

@@ -54,9 +54,8 @@ const ListNamesPage = async () => {
     const id = formData.get("id");
     const name = formData.get("name");
 
-    const newListName = await ListName.findByIdAndUpdate(id, { name });
+    await ListName.findByIdAndUpdate(id, { name });
 
-    console.log(newListName);
     revalidatePath("/dashboard/list-names");
   };
 

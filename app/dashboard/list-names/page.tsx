@@ -48,6 +48,18 @@ const ListNamesPage = async () => {
     revalidatePath("/dashboard/list-names");
   };
 
+  const updateListName = async (formData: FormData) => {
+    "use server";
+
+    const id = formData.get("id");
+    const name = formData.get("name");
+
+    const newListName = await ListName.findByIdAndUpdate(id, { name });
+
+    console.log(newListName);
+    revalidatePath("/dashboard/list-names");
+  };
+
   // console.log(session);
 
   return (
@@ -59,6 +71,7 @@ const ListNamesPage = async () => {
         items={listNames}
         create={createListName}
         deleteName={deleteListName}
+        update={updateListName}
       />
     </>
   );

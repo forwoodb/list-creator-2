@@ -56,6 +56,11 @@ const ListItemsPage = async ({ params }: PageProps) => {
     revalidatePath(`/dashboard/list-items/${listId}`); // Revalidate the path to update the list items after deletion
   };
 
+  const updateListItem = async (formData: FormData) => {
+    "use server";
+
+    console.log("update lust item");
+  };
   return (
     <>
       <AppInterface
@@ -66,6 +71,7 @@ const ListItemsPage = async ({ params }: PageProps) => {
         create={createListItem}
         // create={createListItem.bind(null, listId)}
         deleteName={deleteListItem}
+        update={updateListItem}
       />
     </>
   );

@@ -62,7 +62,9 @@ const ListItemsPage = async ({ params }: PageProps) => {
     const id = formData.get("id");
     const name = formData.get("name");
 
-    await ListItem.findOneAndUpdate(id, { name });
+    await ListItem.findByIdAndUpdate(id, { name });
+
+    revalidatePath(`/dashboard/list-items/${listId}`);
 
     console.log(id, name);
   };

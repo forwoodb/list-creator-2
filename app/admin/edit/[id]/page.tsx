@@ -1,7 +1,11 @@
 import { User } from "@/app/models/User";
 import { redirect } from "next/navigation";
 
-const EditUserPage = async ({ params }) => {
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+const EditUserPage = async ({ params }: PageProps) => {
   const { id } = await params;
 
   const data = await User.findById(id).lean();

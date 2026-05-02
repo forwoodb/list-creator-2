@@ -1,5 +1,12 @@
 import Link from "next/link";
-const AuthForm = ({ mode, emailAction, googleAction }) => {
+
+interface PageProps {
+  mode: string;
+  emailAction: (formData: FormData) => Promise<void>;
+  googleAction: (formData: FormData) => Promise<void>;
+}
+
+const AuthForm = ({ mode, emailAction, googleAction }: PageProps) => {
   return (
     <>
       <div className="form-wrapper flex flex-col items-center w-xs mx-auto">
@@ -41,7 +48,7 @@ const AuthForm = ({ mode, emailAction, googleAction }) => {
         <div className="alt-wrapper flex flex-col justify-between items-center w-xs h-30 mx-auto">
           <p>Or</p>
           <form action={googleAction}>
-            <button class="btn btn-outline btn-neutral">
+            <button className="btn btn-outline btn-neutral">
               <svg
                 xmlns="http://w3.org"
                 viewBox="0 0 48 48"

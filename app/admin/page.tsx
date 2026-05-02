@@ -2,8 +2,15 @@ import { connectDB } from "../lib/db";
 import { User } from "../models/User";
 import { redirect } from "next/navigation";
 
+interface UserType {
+  _id: string;
+  name: string;
+  email: string;
+  role: string;
+  banned: boolean;
+}
 const AdminPage = async () => {
-  connectDB();
+  await connectDB();
 
   // Get Users
   const data = await User.find({}).lean();
@@ -36,7 +43,7 @@ const AdminPage = async () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {users.map((user: UserType) => (
             <tr key={user._id}>
               <td>{user.name}</td>
               <td>{user.email}</td>

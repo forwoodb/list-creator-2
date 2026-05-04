@@ -63,7 +63,6 @@ const ListItem = ({ item, mode, deleteName, update }: ListItemProps) => {
               View
             </Link>
           )}
-          {/* <button onClick={() => setEdit(!edit)} className="btn"> */}
           <button onClick={editItem} className="btn">
             Edit
           </button>

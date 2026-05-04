@@ -60,27 +60,6 @@ const AppInterface = async ({
         </form>
         <div className="list-container">
           {items.map((item) => (
-            // <div
-            //   key={item._id}
-            //   className="flex justify-between items-center max-w-lg p-2.5 mx-auto my-2.5 bg-gray-200 rounded"
-            // >
-            //   {item.name}
-            //   <div className="buttons flex justify-between items-center">
-            //     {mode === "list-names" && (
-            //       <Link
-            //         href={`/dashboard/list-items/${item._id}`}
-            //         className="inline-flex justify-center align-middle px-2.5 mx-1 cursor-pointer rounded"
-            //       >
-            //         View
-            //       </Link>
-            //     )}
-            //     <button className="btn">Edit</button>
-            //     <form action={deleteName}>
-            //       <input type="hidden" name="id" value={item._id} />
-            //       <button className="btn">Delete</button>
-            //     </form>
-            //   </div>
-            // </div>
             <ListItem
               key={item._id}
               item={item}

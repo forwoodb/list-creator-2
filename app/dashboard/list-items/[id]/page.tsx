@@ -14,7 +14,7 @@ interface PageProps {
 
 const ListItemsPage = async ({ params }: PageProps) => {
   // Connect to the database
-  connectDB();
+  await connectDB();
 
   // Get session info
   const session = await auth.api.getSession({

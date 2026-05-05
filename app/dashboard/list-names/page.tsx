@@ -9,7 +9,7 @@ import ListItem from "@/app/models/ListItem";
 
 const ListNamesPage = async () => {
   // Connect to the database
-  connectDB();
+  await connectDB();
 
   // Get session info
   const session = await auth.api.getSession({

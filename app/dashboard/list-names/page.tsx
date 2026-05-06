@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import ListName from "@/app/models/ListName";
 import { connectDB } from "@/app/lib/db";
-import { revalidatePath } from "next/cache";
+import { refresh, revalidatePath } from "next/cache";
 import AppInterface from "@/app/components/AppInterface";
 import ListItem from "@/app/models/ListItem";
 
@@ -30,15 +30,35 @@ const ListNamesPage = async () => {
   const createListName = async (formData: FormData) => {
     "use server";
 
+    // Get session info
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+
+    if (!session) {
+      redirect("/auth/login");
+    }
+
     const name = formData.get("name") as string;
     const newListName = new ListName({ name, userId });
     await newListName.save();
 
     revalidatePath("/dashboard/list-names");
+    // refresh();
   };
 
   const deleteListName = async (formData: FormData) => {
     "use server";
+
+    // Get session info
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+
+    if (!session) {
+      redirect("/auth/login");
+    }
+
     const id = formData.get("id") as string;
     // console.log(id);
 
@@ -46,10 +66,20 @@ const ListNamesPage = async () => {
     await ListItem.deleteMany({ listId: id }); // Delete associated list items
 
     revalidatePath("/dashboard/list-names");
+    // refresh();
   };
 
   const updateListName = async (formData: FormData) => {
     "use server";
+
+    // Get session info
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+
+    if (!session) {
+      redirect("/auth/login");
+    }
 
     const id = formData.get("id");
     const name = formData.get("name");
@@ -57,6 +87,7 @@ const ListNamesPage = async () => {
     await ListName.findByIdAndUpdate(id, { name });
 
     revalidatePath("/dashboard/list-names");
+    // refresh();
   };
 
   // console.log(session);

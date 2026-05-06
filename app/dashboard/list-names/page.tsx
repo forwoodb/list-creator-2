@@ -30,6 +30,8 @@ const ListNamesPage = async () => {
   const createListName = async (formData: FormData) => {
     "use server";
 
+    await connectDB();
+
     // Get session info
     const session = await auth.api.getSession({
       headers: await headers(),
@@ -49,6 +51,8 @@ const ListNamesPage = async () => {
 
   const deleteListName = async (formData: FormData) => {
     "use server";
+
+    await connectDB();
 
     // Get session info
     const session = await auth.api.getSession({
@@ -71,6 +75,8 @@ const ListNamesPage = async () => {
 
   const updateListName = async (formData: FormData) => {
     "use server";
+
+    await connectDB();
 
     // Get session info
     const session = await auth.api.getSession({

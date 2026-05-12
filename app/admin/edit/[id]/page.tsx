@@ -1,3 +1,4 @@
+import { connectDB } from "@/app/lib/db";
 import { User } from "@/app/models/User";
 import { redirect } from "next/navigation";
 
@@ -6,6 +7,8 @@ interface PageProps {
 }
 
 const EditUserPage = async ({ params }: PageProps) => {
+  await connectDB();
+
   const { id } = await params;
 
   const data = await User.findById(id).lean();
@@ -27,7 +30,10 @@ const EditUserPage = async ({ params }: PageProps) => {
 
   return (
     <>
-      <form action={updateUser} className="flex flex-col gap-4 w-xs mx-auto">
+      <form
+        action={updateUser}
+        className="flex flex-col gap-4 w-xs p-4 mx-auto"
+      >
         <input type="text" name="name" value={user.name} className="input" />
         <input type="text" name="email" value={user.email} className="input" />
         <select name="role" id="role" className="select">

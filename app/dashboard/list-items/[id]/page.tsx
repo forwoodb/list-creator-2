@@ -40,6 +40,8 @@ const ListItemsPage = async ({ params }: PageProps) => {
   const createListItem = async (formData: FormData) => {
     "use server";
 
+    await connectDB();
+
     const name = formData.get("name") as string;
     const newListItem = new ListItem({ listId, name });
     await newListItem.save();
@@ -49,6 +51,9 @@ const ListItemsPage = async ({ params }: PageProps) => {
 
   const deleteListItem = async (formData: FormData) => {
     "use server";
+
+    await connectDB();
+
     const id = formData.get("id") as string;
 
     await ListItem.findByIdAndDelete(id);
@@ -58,6 +63,8 @@ const ListItemsPage = async ({ params }: PageProps) => {
 
   const updateListItem = async (formData: FormData) => {
     "use server";
+
+    await connectDB();
 
     const id = formData.get("id");
     const name = formData.get("name");
